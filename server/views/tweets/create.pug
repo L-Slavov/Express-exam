@@ -1,0 +1,7 @@
+extends ../shared/layout
+block main-content
+  div.row
+    form(method="POST").form-inline
+       label(for="tweet") Message: 
+       textarea(rows="2" cols="60" placeholder="Enter message" name="message")#tweet.form-control
+       input(type="submit" value="Send").btn.btn-default 

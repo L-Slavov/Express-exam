@@ -1,0 +1,70 @@
+extends ../shared/layout
+block main-content
+  div.row
+    div.col-md-3
+      table.table
+        thead
+          tr
+            th Username
+            th First Name
+            th Last Name
+        tbody
+          tr
+            td= User.username
+            td= User.firstName
+            td= User.lastName
+  div.row
+    if(currentUser.roles.indexOf('Admin') == -1)
+      table.table
+        thead
+          tr
+          th User
+          th Message
+          th Views
+          th Likes
+          th
+        tbody
+          if tweets
+            each tweet in tweets
+              tr
+                td= tweet.creator
+                td= tweet.message
+                td= tweet.views
+                td= tweet.likes.length
+                if (tweet.likes.indexOf(currentUser.username) === -1)
+                  td
+                    form(method="POST" action="/tweet/like")
+                      input(type="hidden" name="id" value= tweet._id )
+                      input(type="hidden" name="location" value = page)
+                      input(type="submit" value="Like").btn.btn-success
+                else
+                  td
+                    form(method="POST" action="/tweet/dislike")
+                      input(type="hidden" name="id" value= tweet._id )
+                      input(type="hidden" name="location" value = page)
+                      input(type="submit" value="Dislike").btn.btn-danger
+    else
+      table.table
+        thead
+          tr
+          th User
+          th Message
+          th Update
+        tbody
+          if tweets
+            each tweet in tweets
+              tr
+                td= tweet.creator
+                td
+                  form(method="POST" action="/tweet/update")
+                    input(type="hidden" value="update" name="change")
+                    input(type="hidden" value=tweet._id name="id")
+                    input(type="hidden" value=page name="location")
+                    textarea(rows="2" cols="60"  name="message")=tweet.message
+                    input(type="submit" value="Edit").btn.btn-warning
+                td
+                  form(method="POST" action="/tweet/update")
+                    input(type="hidden" value="delete" name="change")
+                    input(type="hidden" value=tweet._id name="id")
+                    input(type="hidden" value=page name="location")
+                    input(type="submit" value="Delete").btn.btn-danger

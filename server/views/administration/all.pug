@@ -1,0 +1,22 @@
+extends ../shared/layout
+block main-content
+  div.row
+  div.col-md-4.col-md-offset-4
+    table.table
+      thead
+        each user in users
+          tr
+            th= user.username
+            th= user.roles
+            if (currentUser.roles.indexOf('Admin') === -1)
+              th
+                form(method="POST" action="/admins/add")
+                  input(type="hidden" value=user.username name="username")
+                  input(type="hidden" value="promote" name="change")
+                  input(type="submit" value="Promote").btn.btn-success
+            else
+              th
+                form(method="POST" action="/admins/add")
+                  input(type="hidden" value=user.username name="username")
+                  input(type="hidden" value="demote" name="change")
+                  input(type="submit" value="Demote").btn.btn-danger

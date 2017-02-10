@@ -1,0 +1,28 @@
+extends ../shared/layout
+block main-content
+  div.row
+  div.col-md-6.col-md-offset-3
+    h1 Create new user
+    form(method="post" action="/users/create")
+      div.form-group
+      label(for="username") Username
+      input(type="text" name="username" id="username" value=username).form-control
+
+      div.form-group
+      label(for="password") Password
+      input(type="password" name="password" id="password").form-control
+
+      div.form-group
+      label(for="confirm-password") Confirm Password
+      input(type="password" name="confirmPassword" id="confirm-password").form-control
+
+      div.form-group
+      label(for="first-name") First Name
+      input(type="text" name="firstName" id="first-name").form-control
+
+      div.form-group
+      label(for="last-name") Last Name
+      input(type="text" name="lastName" id="last-name").form-control
+
+      div.form-group
+      input(type="submit" value="Create").btn.btn-default

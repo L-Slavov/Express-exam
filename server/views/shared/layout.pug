@@ -1,0 +1,30 @@
+doctype
+html
+  head
+    title Exam
+    link(href="/css/bootstrap.css" rel="stylesheet")
+    link(href="/css/site.css" rel="stylesheet")
+  body
+    .container
+      div.row
+        ul.menu
+          li.col-md-1
+            a(href="/").btn.btn-default Home
+          li.col-md-1
+            a(href="/about").btn.btn-default About
+          if (currentUser)
+            li.col-md-2
+              a(href="/tweet/create").btn.btn-default Create new Tweet
+            li.col-md-1.col-md-offset-6
+              span= currentUser.username
+            li.col-md-1
+              form#logout-form(method="post" action="/users/logout")
+                a(href="javascript:document.getElementById('logout-form').submit()").btn.btn-default Logout
+          else 
+            li.col-md-1.col-md-offset-8
+              a(href="/users/register").btn.btn-default Register
+            li.col-md-1
+              a(href="/users/login").btn.btn-default Log In
+      if (globalError)
+        h3= globalError
+      block main-content
